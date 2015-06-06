@@ -8,8 +8,8 @@ public class CompassController : MonoBehaviour {
 	private Rigidbody rb;
 
 	public Image compassFace;
-	public Image compassTarget;
-	public Image compassCurrent;
+	//public Image compassTarget;
+	public RectTransform compassCurrent;
 
 	private RectTransform panel;
 	private Vector2 pivotPoint;
@@ -28,6 +28,10 @@ public class CompassController : MonoBehaviour {
 		updateCurrentHeading ();
 	}
 
+	void LateUpdate(){
+		rotateCurrentHeadingNeedle ();
+	}
+
 	void setPivotPoint(){
 		pivotPoint = new Vector2 (panel.rect.width/2, panel.rect.height/2);
 	}
@@ -38,6 +42,6 @@ public class CompassController : MonoBehaviour {
 	}
 
 	void rotateCurrentHeadingNeedle(){
-		compassCurrent.transform.RotateAround
+		compassCurrent.transform.rotation = Quaternion.Euler(0, 0, -currentHeading);
 	}
 }
