@@ -3,22 +3,15 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class InfoPanelController : MonoBehaviour {
-
-	public GameObject player;
-	private Rigidbody rb;
-
+	
 	public Text speedText;
 	public Text targetVectorText;
 	public Text currentVectorText;
-
-	public Slider headingSlider;
-
-	private Vector3 speed;
-	private Vector3 forwardVector;
+	public Text currentAngleText;
+	public Text targetAngleText;
 
 	// Use this for initialization
 	void Start () {
-		rb = player.GetComponent<Rigidbody>();
 		setSpeedText();
 		setForwardVectorText ();
 		setDesiredVectorText ();
@@ -32,20 +25,26 @@ public class InfoPanelController : MonoBehaviour {
 	}
 
 	void setSpeedText(){
-		speed = rb.velocity;
-		float spfl = speed.magnitude;
-		speedText.text = "Speed: " + spfl.ToString ("F2");
+		speedText.text = "Speed: " + (CourseInfo.currentSpeed * 100).ToString("0");
 	}
 
 	void setForwardVectorText(){
-		forwardVector = rb.transform.forward;
-		float heading = Quaternion.LookRotation (forwardVector).eulerAngles.y;
-		currentVectorText.text = "Current Heading: " + heading.ToString ("0");
+		currentVectorText.text = "Current Heading: " + CourseInfo.currentHeading.ToString("0");
 	}
 
 	void setDesiredVectorText(){
-		targetVectorText.text = "Target Heading: " + getDesiredHeading ().ToString ("0");
+		targetVectorText.text = "Target Heading: " + CourseInfo.desiredHeading.ToString("0");
 	}
+
+	void setCurrentAngleText(){
+		currentAngleText.text = "Current Angle: " + CourseInfo.currentAngle.ToString("0");
+	}
+
+	void setDesiredAngleText(){
+		currentAngleText.text = "Target Angle: " + CourseInfo.desiredAngle.ToString("0");
+	}
+
+
 
 	float getDesiredHeading(){
 		return CourseInfo.desiredHeading;

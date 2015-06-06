@@ -10,11 +10,12 @@ public class MovementController : MonoBehaviour {
 	public float turnRate;
 
 	public Slider speedSlider;
-	public Slider headingSlider;
+	public Slider angleSlider;
 
 	private float forwardSpeed;
 
 	private float currentHeading;
+	private float currentAngle;
 
 	// Use this for initialization
 	void Start () {
@@ -24,14 +25,16 @@ public class MovementController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		setCurrentSpeed ();
 		setCurrentHeading ();
+		setCurrentAngle ();
 	}
 
 	void FixedUpdate()
 	{
 		rb.AddForce(transform.forward * forwardSpeed * Time.deltaTime, ForceMode.Force);
 		turnToHeading ();
-
+		turnToAngle ();
 	}
 
 	void LateUpdate () {
@@ -41,7 +44,7 @@ public class MovementController : MonoBehaviour {
 	void turnToHeading(){
 		float turnToApply = turnRate;
 
-		if (headingDiff () < 50) {
+		if (headingDiff () < 10) {
 			turnToApply = turnRate/2;
 		}
 		if (isTurnCCW()) {
@@ -51,10 +54,44 @@ public class MovementController : MonoBehaviour {
 		}
 	}
 
+	void turnToAngle(){
+		float turnToApply = turnRate;
+		
+		if (angleDiff () < 10) {
+			turnToApply = turnRate/2;
+		}
+		if (isAngleUp()) {
+			rb.AddTorque (transform.right * -turnToApply * Time.deltaTime);
+		} else {
+			rb.AddTorque (transform.right * turnToApply * Time.deltaTime);
+		}
+	}
+
+	
+	void setCurrentSpeed(){
+		Vector3 speed = rb.velocity;
+		float mag = speed.magnitude;
+		CourseInfo.currentSpeed = mag;
+	}
+
 	void setCurrentHeading(){
 		Vector3 curHeadingVector = rb.transform.forward;
 		currentHeading = Quaternion.LookRotation (curHeadingVector).eulerAngles.y;
 		CourseInfo.currentHeading = currentHeading;
+	}
+
+	void setCurrentAngle(){
+		Vector3 curHeadingVector = rb.transform.forward;
+		currentAngle = Quaternion.LookRotation (curHeadingVector).eulerAngles.x;
+		CourseInfo.currentAngle = currentAngle;
+	}
+
+	float getCurrentAngle(){
+		return CourseInfo.currentAngle;
+	}
+
+	float getDesiredAngle(){
+		return CourseInfo.desiredAngle;
 	}
 
 	float getCurrentHeading(){
@@ -65,6 +102,11 @@ public class MovementController : MonoBehaviour {
 		return CourseInfo.desiredHeading;
 	}
 
+	float angleDiff(){
+		float diff = (Mathf.DeltaAngle(getCurrentAngle(), getDesiredAngle()));
+		return diff;
+	}
+
 	float headingDiff(){
 		float diff = (Mathf.DeltaAngle(getCurrentHeading(),getDesiredHeading()));
 		return diff;
@@ -72,9 +114,15 @@ public class MovementController : MonoBehaviour {
 
 	bool isTurnCCW (){
 		float diff = getDesiredHeading () - getCurrentHeading ();
-
 		return diff > 0 ? diff > 180 : diff >= -180;
 	}
+
+	bool isAngleUp(){
+		float diff = getDesiredAngle () - getCurrentAngle ();
+		return diff > 0 ? diff > 180 : diff >= -180;
+	} 
+
+
 
 
 
