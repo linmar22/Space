@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
-public class CompassController : MonoBehaviour {
+public class CompassController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
 	public GameObject player;
 	private Rigidbody rb;
@@ -12,18 +13,21 @@ public class CompassController : MonoBehaviour {
 	public RectTransform compassCurrent;
 
 	private RectTransform panel;
-	private Vector2 pivotPoint;
+	private Vector2 pivotPoint = new Vector2(0,0);
 
 	private float currentHeading;
 
-	// Use this for initialization
+
+	private bool mouseDown;
+	private Vector3 clickMousePos;
+	private Vector3 clickPos;
+
+
 	void Start () {
 		rb = player.GetComponent<Rigidbody>();
 		panel = GetComponent<RectTransform>();
-		setPivotPoint ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		updateCurrentHeading ();
 	}
@@ -32,8 +36,18 @@ public class CompassController : MonoBehaviour {
 		rotateCurrentHeadingNeedle ();
 	}
 
-	void setPivotPoint(){
-		pivotPoint = new Vector2 (panel.rect.width/2, panel.rect.height/2);
+	public void OnPointerDown(PointerEventData ped) 
+	{
+		mouseDown = true;
+		clickPos = transform.position;
+		clickMousePos = Input.mousePosition;
+		//Debug.Log ("clickPos = " + clickPos + "   clickMousePos = " + clickMousePos);
+		DebugPoint (ped);
+	}
+	
+	public void OnPointerUp(PointerEventData ped) 
+	{
+		mouseDown = false;
 	}
 
 	void updateCurrentHeading(){
@@ -43,5 +57,23 @@ public class CompassController : MonoBehaviour {
 
 	void rotateCurrentHeadingNeedle(){
 		compassCurrent.transform.rotation = Quaternion.Euler(0, 0, -currentHeading);
+	}
+
+	void DebugPoint(PointerEventData ped)
+	{
+		Vector2 localCursor;
+		if (!RectTransformUtility.ScreenPointToLocalPointInRectangle (GetComponent<RectTransform> (), ped.position, ped.pressEventCamera, out localCursor)) {
+			return;
+		}
+
+		Vector2 mouseVec = localCursor - pivotPoint;
+		float angle = Mathf.Atan2 (mouseVec.y, mouseVec.x);
+
+		float degrees = angle * Mathf.Rad2Deg-90;
+
+		if (degrees < 0) {
+			degrees = degrees + 360;
+		}
+		Debug.Log ("Angle= " + ((degrees)-360)*-1);
 	}
 }
