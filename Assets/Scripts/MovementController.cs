@@ -18,11 +18,16 @@ public class MovementController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//////SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+		STATICINFOCLASS.InfoHolder = "Yo dawg";
+
 		rb = player.GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+		print (STATICINFOCLASS.InfoHolder);
 		setCurrentHeading ();
 	}
 
