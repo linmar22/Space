@@ -40,14 +40,14 @@ public class InfoPanelController : MonoBehaviour {
 	void setForwardVectorText(){
 		forwardVector = rb.transform.forward;
 		float heading = Quaternion.LookRotation (forwardVector).eulerAngles.y;
-		currentVectorText.text = "Current Heading: " + heading.ToString ("F2");
+		currentVectorText.text = "Current Heading: " + heading.ToString ("0");
 	}
 
 	void setDesiredVectorText(){
-		targetVectorText.text = "Target Heading: " + getDesiredHeading ().ToString ("F2");
+		targetVectorText.text = "Target Heading: " + getDesiredHeading ().ToString ("0");
 	}
 
 	float getDesiredHeading(){
-		return headingSlider.value;
+		return CourseInfo.desiredHeading;
 	}
 }

@@ -18,16 +18,12 @@ public class MovementController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//////SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-		STATICINFOCLASS.InfoHolder = "Yo dawg";
 
 		rb = player.GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-		print (STATICINFOCLASS.InfoHolder);
 		setCurrentHeading ();
 	}
 
@@ -58,14 +54,15 @@ public class MovementController : MonoBehaviour {
 	void setCurrentHeading(){
 		Vector3 curHeadingVector = rb.transform.forward;
 		currentHeading = Quaternion.LookRotation (curHeadingVector).eulerAngles.y;
+		CourseInfo.currentHeading = currentHeading;
 	}
 
 	float getCurrentHeading(){
-		return currentHeading;
+		return CourseInfo.currentHeading;
 	}
 
 	float getDesiredHeading(){
-		return headingSlider.value;
+		return CourseInfo.desiredHeading;
 	}
 
 	float headingDiff(){

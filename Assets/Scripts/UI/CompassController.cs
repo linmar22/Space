@@ -4,19 +4,12 @@ using UnityEngine.EventSystems;
 using System.Collections;
 
 public class CompassController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
-
-	public GameObject player;
-	private Rigidbody rb;
-
+	
 	public Image compassFace;
-	//public Image compassTarget;
+	public RectTransform compassDesired;
 	public RectTransform compassCurrent;
-
-	private RectTransform panel;
+	
 	private Vector2 pivotPoint = new Vector2(0,0);
-
-	private float currentHeading;
-
 
 	private bool mouseDown;
 	private Vector3 clickMousePos;
@@ -24,42 +17,34 @@ public class CompassController : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
 
 	void Start () {
-		rb = player.GetComponent<Rigidbody>();
-		panel = GetComponent<RectTransform>();
 	}
 
 	void Update () {
-		updateCurrentHeading ();
+
 	}
 
 	void LateUpdate(){
 		rotateCurrentHeadingNeedle ();
+		rotateDesiredHeadingNeedle ();
 	}
 
-	public void OnPointerDown(PointerEventData ped) 
-	{
-		mouseDown = true;
-		clickPos = transform.position;
-		clickMousePos = Input.mousePosition;
-		//Debug.Log ("clickPos = " + clickPos + "   clickMousePos = " + clickMousePos);
-		DebugPoint (ped);
+	public void OnPointerDown(PointerEventData ped){
+		setDesiredHeading (ped);
 	}
 	
-	public void OnPointerUp(PointerEventData ped) 
-	{
-		mouseDown = false;
-	}
+	public void OnPointerUp(PointerEventData ped){
 
-	void updateCurrentHeading(){
-		Vector3 forwardVector = rb.transform.forward;
-		currentHeading = Quaternion.LookRotation (forwardVector).eulerAngles.y;
 	}
 
 	void rotateCurrentHeadingNeedle(){
-		compassCurrent.transform.rotation = Quaternion.Euler(0, 0, -currentHeading);
+		compassCurrent.transform.rotation = Quaternion.Euler(0, 0, -CourseInfo.currentHeading);
 	}
 
-	void DebugPoint(PointerEventData ped)
+	void rotateDesiredHeadingNeedle(){
+		compassDesired.transform.rotation = Quaternion.Euler (0, 0, -CourseInfo.desiredHeading);
+	}
+
+	void setDesiredHeading(PointerEventData ped)
 	{
 		Vector2 localCursor;
 		if (!RectTransformUtility.ScreenPointToLocalPointInRectangle (GetComponent<RectTransform> (), ped.position, ped.pressEventCamera, out localCursor)) {
@@ -68,12 +53,13 @@ public class CompassController : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
 		Vector2 mouseVec = localCursor - pivotPoint;
 		float angle = Mathf.Atan2 (mouseVec.y, mouseVec.x);
-
 		float degrees = angle * Mathf.Rad2Deg-90;
 
 		if (degrees < 0) {
 			degrees = degrees + 360;
 		}
-		Debug.Log ("Angle= " + ((degrees)-360)*-1);
+		degrees = (((degrees)-360)*(-1));
+
+		CourseInfo.desiredHeading = degrees;
 	}
 }
