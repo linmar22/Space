@@ -22,6 +22,8 @@ public class InfoPanelController : MonoBehaviour {
 		setSpeedText();
 		setForwardVectorText ();
 		setDesiredVectorText ();
+		setCurrentAngleText ();
+		setDesiredAngleText ();
 	}
 
 	void setSpeedText(){
@@ -41,7 +43,7 @@ public class InfoPanelController : MonoBehaviour {
 	}
 
 	void setDesiredAngleText(){
-		currentAngleText.text = "Target Angle: " + CourseInfo.desiredAngle.ToString("0");
+		targetAngleText.text = "Target Angle: " + CourseInfo.desiredAngle.ToString("0");
 	}
 
 

@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\MovementController.cs" />
      <Compile Include="Assets\Scripts\UI\AngleController.cs" />
      <Compile Include="Assets\Scripts\UI\CompassController.cs" />
+     <Compile Include="Assets\Scripts\UI\CourseSetter.cs" />
      <Compile Include="Assets\Scripts\UI\InfoPanelController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

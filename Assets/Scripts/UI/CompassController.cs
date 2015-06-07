@@ -13,8 +13,6 @@ public class CompassController : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
 	private bool mouseDown;
 	private Vector3 clickMousePos;
-	private Vector3 clickPos;
-
 
 	void Start () {
 	}
