@@ -28,6 +28,7 @@ public class MovementController : MonoBehaviour {
 		setCurrentSpeed ();
 		setCurrentHeading ();
 		setCurrentAngle ();
+
 	}
 
 	void FixedUpdate()
@@ -44,27 +45,42 @@ public class MovementController : MonoBehaviour {
 	void turnToHeading(){
 		float turnToApply = turnRate;
 
-		if (headingDiff () < 10) {
-			turnToApply = turnRate/2;
-		}
 		if (isTurnCCW()) {
 			rb.AddTorque (transform.up * -turnToApply * Time.deltaTime);
+			if(headingDiff()>-15 && isTurnCCW()){
+				Vector3 force = new Vector3(0,rb.angularVelocity.y,0);
+				rb.AddTorque(force * -1f, ForceMode.Force);
+			}
 		} else {
 			rb.AddTorque (transform.up * turnToApply * Time.deltaTime);
+			if(headingDiff()<15 && !isTurnCCW()){
+				Vector3 force = new Vector3(0,rb.angularVelocity.y,0);
+				rb.AddTorque(force * -1f, ForceMode.Force);
+			}
 		}
 	}
 
+
 	void turnToAngle(){
 		float turnToApply = turnRate;
-		
-		if (angleDiff () < 10) {
-			turnToApply = turnRate/2;
-		}
+
 		if (isAngleUp()) {
 			rb.AddTorque (transform.right * -turnToApply * Time.deltaTime);
+			if(angleDiff()>-15 && isAngleUp()){
+				Vector3 force = new Vector3(rb.angularVelocity.x,0,0);
+				rb.AddTorque(force * -1f, ForceMode.Force);
+			}
 		} else {
 			rb.AddTorque (transform.right * turnToApply * Time.deltaTime);
+			if(angleDiff()<15 && !isAngleUp()){
+				Vector3 force = new Vector3(rb.angularVelocity.x,0,0);
+				rb.AddTorque(force * -1f, ForceMode.Force);
+			}
 		}
+	}
+
+	void rollIntoTurn(){
+
 	}
 
 	
