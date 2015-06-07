@@ -1,14 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MovementController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UI\AngleController.cs">
     <Files>
-      <File FileName="Assets\Scripts\MovementController.cs" Line="63" Column="1" />
-      <File FileName="Assets\Scripts\UI\CompassController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UI\CourseSetter.cs" Line="61" Column="28" />
-      <File FileName="Assets\Scripts\UI\InfoPanelController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CourseInfo.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UI\AngleController.cs" Line="28" Column="31" />
+      <File FileName="Assets\Scripts\UI\AngleController.cs" Line="28" Column="11" />
+      <File FileName="Assets\Scripts\UI\CenterCompassController.cs" Line="19" Column="11" />
+      <File FileName="Assets\Scripts\MovementController.cs" Line="109" Column="13" />
+      <File FileName="Assets\Scripts\UI\CourseSetter.cs" Line="17" Column="25" />
+      <File FileName="Assets\Scripts\UI\InfoPanelController.cs" Line="17" Column="8" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="9" Column="25" />
+      <File FileName="Assets\Scripts\CourseInfo.cs" Line="8" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

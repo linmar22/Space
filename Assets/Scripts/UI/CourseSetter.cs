@@ -26,7 +26,6 @@ public class CourseSetter : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
 			mouseX=Input.mousePosition.x;
 			mouseY=Screen.height - Input.mousePosition.y;
-			print (mouseX +", " + mouseY);
 			tabKeyDown = true;
 		}
 		if (Input.GetKeyUp (KeyCode.Tab)) {
@@ -59,7 +58,6 @@ public class CourseSetter : MonoBehaviour {
 			if(Input.GetMouseButton(0)){
 
 				desiredDegrees=degrees;
-				print(desiredDegrees);
 				drawDesired=true;
 
 			}

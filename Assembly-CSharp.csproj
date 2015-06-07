@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\CourseInfo.cs" />
      <Compile Include="Assets\Scripts\MovementController.cs" />
      <Compile Include="Assets\Scripts\UI\AngleController.cs" />
+     <Compile Include="Assets\Scripts\UI\CenterCompassController.cs" />
      <Compile Include="Assets\Scripts\UI\CompassController.cs" />
      <Compile Include="Assets\Scripts\UI\CourseSetter.cs" />
      <Compile Include="Assets\Scripts\UI\InfoPanelController.cs" />
